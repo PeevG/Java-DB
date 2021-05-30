@@ -1,5 +1,5 @@
 CREATE DATABASE `soft_uni`;
-USE soft_uni;
+USE `soft_uni`;
 
 CREATE TABLE `towns` (
 `id` INT PRIMARY KEY AUTO_INCREMENT,
