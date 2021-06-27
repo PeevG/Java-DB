@@ -1,2 +1,2 @@
-# Java-DB
-Homework and exercises from Java DB course at SoftUni.
+# MySQL
+Homework and exercises from MySQL course at SoftUni.
