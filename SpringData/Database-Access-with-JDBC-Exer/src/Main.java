@@ -32,7 +32,6 @@ public class Main {
     }
 
     private static void exerSeven() {
-
     }
 
 //    private static void exerSix() {
