@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -31,7 +32,20 @@ public class Main {
         }
     }
 
-    private static void exerSeven() {
+    private static void exerSeven() throws SQLException {
+        ArrayDeque<String> minions = new ArrayDeque<>();
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT m.name FROM minions m;");
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            minions.add(resultSet.getString("name"));
+        }
+        while (!minions.isEmpty()) {
+            System.out.println(minions.pollFirst());
+            System.out.println(minions.pollLast());
+        }
     }
 
 //    private static void exerSix() {
