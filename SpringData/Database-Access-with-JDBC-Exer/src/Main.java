@@ -29,8 +29,6 @@ public class Main {
            // case 6 -> exerSix();
             case 7 -> exerSeven();
         }
-
-
     }
 
     private static void exerSeven() {
