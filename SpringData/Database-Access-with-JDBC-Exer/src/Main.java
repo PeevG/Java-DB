@@ -29,7 +29,34 @@ public class Main {
             case 5 -> exerFive();
            // case 6 -> exerSix();
             case 7 -> exerSeven();
+            case 8 -> exerEight();
         }
+    }
+
+    private static void exerEight() throws IOException, SQLException {
+        System.out.println("Enter minions id separated by space: ");
+        String input = reader.readLine();
+
+        String[] minionsToIncrease = input.split("\\s+");
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("UPDATE minions m SET m.age = m.age + 1, m.name = LOWER(m.name) WHERE id = ?;");
+
+        for (int i = 0; i < minionsToIncrease.length; i++) {
+            int minionId = Integer.parseInt(minionsToIncrease[i]);
+            preparedStatement.setInt(1, minionId);
+            preparedStatement.executeUpdate();
+        }
+
+        PreparedStatement stmt = connection
+                .prepareStatement("SELECT m.name, m.age FROM minions m;");
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString("name") + " " +  resultSet.getInt("age"));
+        }
+        System.out.println();
     }
 
     private static void exerSeven() throws SQLException {
