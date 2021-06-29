@@ -25,11 +25,34 @@ public class Main {
         switch (exerciseNumber) {
             case 2 -> exerTwo();
             case 3 -> exerThree();
-           // case 4 -> exerFour();
+            case 4 -> exerFour();
             case 5 -> exerFive();
-           // case 6 -> exerSix();
+            case 6 -> exerSix();
             case 7 -> exerSeven();
             case 8 -> exerEight();
+            case 9 -> exerNine();
+        }
+    }
+
+    private static void exerNine() throws IOException, SQLException {
+        System.out.println("Enter minion id: ");
+        int minion_id = Integer.parseInt(reader.readLine());
+
+        CallableStatement callableStatement = connection
+                .prepareCall("CALL usp_get_older(?)");
+
+        callableStatement.setInt(1, minion_id);
+
+        int updatedMinion = callableStatement.executeUpdate();
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT m.name, m.age FROM minions m WHERE id = ?;");
+        preparedStatement.setInt(1, minion_id);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            System.out.printf("%s %d", resultSet.getString("name"), resultSet.getInt("age"));
         }
     }
 
@@ -54,7 +77,7 @@ public class Main {
         ResultSet resultSet = stmt.executeQuery();
 
         while (resultSet.next()) {
-            System.out.println(resultSet.getString("name") + " " +  resultSet.getInt("age"));
+            System.out.println(resultSet.getString("name") + " " + resultSet.getInt("age"));
         }
         System.out.println();
     }
@@ -75,9 +98,21 @@ public class Main {
         }
     }
 
-//    private static void exerSix() {
-//
-//    }
+    private static void exerSix() throws IOException, SQLException {
+        System.out.println("Next week, sorry :)");
+        int villainId = Integer.parseInt(reader.readLine());
+
+        int deletedEntities = deleteMinionByVillainId(villainId);
+
+    }
+
+    private static int deleteMinionByVillainId(int villainId) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("DELETE FROM minions_villains WHERE villain_id = ?");
+        preparedStatement.setInt(1, villainId);
+
+        return preparedStatement.executeUpdate();
+    }
 
     private static void exerFive() throws IOException, SQLException {
         System.out.println("Enter country name: ");
@@ -110,8 +145,12 @@ public class Main {
         System.out.println(towns);
     }
 
-//    private static void exerFour() throws IOException, SQLException {
+    //Todo: Finish exercise four
+    private static void exerFour() throws IOException, SQLException {
+        System.out.println("Exercise four is not ready yet.");
 //        System.out.println("Enter info -> Minion name, age, town: ");
+//        System.out.println("Enter villain name: ");
+//
 //        String[] input = reader.readLine().split(": ");
 //
 //        String[] minionInfo = input[1].split(" ");
@@ -119,30 +158,36 @@ public class Main {
 //        int minionAge = Integer.parseInt(minionInfo[1]);
 //        String minionTown = minionInfo[2];
 //
-//       int townId = getEntityIdByName(minionTown, "towns");
+//        input = reader.readLine().split(": ");
+//
+//        String villainName = input[1];
+//
+//        int townId = findTownIdByName(minionTown);
 //
 //        System.out.println(townId);
 //
 //    }
-
-//    private static int getEntityIdByName(String entityName, String tableName) throws SQLException {
-//        String query = String.format("SELECT id FROM %s WHERE name ?", tableName);
+//
+//    private static int findTownIdByName(String minionTown) throws SQLException {
 //
 //        PreparedStatement preparedStatement = connection
-//                .prepareStatement(query);
-//        preparedStatement.setString(1, entityName);
+//                .prepareStatement("SELECT id FROM towns WHERE name = ?");
 //
+//        preparedStatement.setString(1, minionTown);
 //        ResultSet resultSet = preparedStatement.executeQuery();
 //
-//        return resultSet.next() ? resultSet.getInt(1) : -1;
-//
-//    }
+//        int result = 0;
+//        while (resultSet.next()) {
+//            result = resultSet.getInt("id");
+//        }
+//        return result;
+    }
 
     private static void exerThree() throws SQLException, IOException {
 
         System.out.println("Enter villain id: ");
         int villainId = Integer.parseInt(reader.readLine());
-        if(villainId < 1 || villainId > 6) {
+        if (villainId < 1 || villainId > 6) {
             System.out.println("No villain with ID " + villainId + " exists in the database.");
             return;
         }
@@ -191,11 +236,11 @@ public class Main {
                 "HAVING count > ? " +
                 "ORDER BY count DESC;");
 
-        preparedStatement.setInt(1,15);
+        preparedStatement.setInt(1, 15);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             System.out.printf("%s %d %n", resultSet.getString(1), resultSet.getInt(2));
         }
     }
