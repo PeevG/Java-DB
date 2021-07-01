@@ -1,3 +1,4 @@
+import entities.Address;
 import entities.Employee;
 
 import javax.persistence.EntityManager;
@@ -30,11 +31,36 @@ public class Engine implements Runnable {
                 case 3 -> ExerciseThreeContainsEmployee();
                 case 4 -> ExerciseFourEmployeeWithSalaryOver();
                 case 5 -> ExerciseFiveEmpFromDepartment();
+                case 6 -> ExerciseSix();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ExerciseSix() throws IOException {
+        System.out.println("Enter employee last name: ");
+        String lastName = bufferedReader.readLine();
+
+        Employee employee = entityManager.createQuery("SELECT e FROM Employee e WHERE e.lastName = :l_name", Employee.class)
+                .setParameter("l_name", lastName)
+                .getSingleResult();
+
+        Address address = createAddress("Vitoshka 16");
+
+        employee.setAddress(address);
+
+    }
+
+    private Address createAddress(String addressText) {
+        Address address = new Address();
+        address.setText(addressText);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(address);
+        entityManager.getTransaction().commit();
+        return address;
     }
 
     private void ExerciseFiveEmpFromDepartment() {
