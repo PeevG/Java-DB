@@ -3,7 +3,6 @@ import entities.Employee;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.transaction.Transaction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,7 +27,7 @@ public class Engine implements Runnable {
 
             switch (exerciseNumber) {
                 case 2 -> ExerciseTwoChangeCasing();
-                case 3 -> ExerciseThree3ContainsEmployee();
+                case 3 -> ExerciseThreeContainsEmployee();
                 case 4 -> ExerciseFourEmployeeWithSalaryOver();
             }
 
@@ -38,10 +37,18 @@ public class Engine implements Runnable {
     }
 
     private void ExerciseFourEmployeeWithSalaryOver() {
+        entityManager.getTransaction().begin();
 
+        entityManager.createQuery("SELECT e FROM Employee e " +
+                "WHERE e.salary > 50000", Employee.class)
+                .getResultStream()
+                .map(Employee::getFirstName)
+                .forEach(System.out::println);
+
+        entityManager.getTransaction().commit();
     }
 
-    private void ExerciseThree3ContainsEmployee() throws IOException {
+    private void ExerciseThreeContainsEmployee() throws IOException {
         System.out.println("Please enter first and last name separated by space: ");
 
         String[] input = bufferedReader.readLine().split("\\s+");
