@@ -29,11 +29,25 @@ public class Engine implements Runnable {
                 case 2 -> ExerciseTwoChangeCasing();
                 case 3 -> ExerciseThreeContainsEmployee();
                 case 4 -> ExerciseFourEmployeeWithSalaryOver();
+                case 5 -> ExerciseFiveEmpFromDepartment();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ExerciseFiveEmpFromDepartment() {
+        entityManager.createQuery("SELECT e FROM Employee e " +
+                "WHERE e.department.name = 'Research and Development' " +
+                "ORDER BY e.salary, e.id", Employee.class)
+                .getResultStream()
+                .forEach(employee -> {
+                    System.out.printf("%s %s Research and Development - %.2f%n", employee.getFirstName(), employee.getLastName(),
+                            employee.getSalary());
+                });
+
+
     }
 
     private void ExerciseFourEmployeeWithSalaryOver() {
