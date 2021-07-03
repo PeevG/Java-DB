@@ -4,9 +4,11 @@ import entities.Employee;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class Engine implements Runnable {
 
@@ -32,11 +34,23 @@ public class Engine implements Runnable {
                 case 4 -> ExerciseFourEmployeeWithSalaryOver();
                 case 5 -> ExerciseFiveEmpFromDepartment();
                 case 6 -> ExerciseSix();
+                case 7 -> ExerciseSevenEmployeeCount();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ExerciseSevenEmployeeCount() {
+        entityManager.createQuery("SELECT a FROM Address a ORDER BY a.employees.size DESC", Address.class)
+                .getResultStream()
+                .limit(10)
+                .forEach(address -> {
+                    System.out.printf("%s, %s - %d employees%n",
+                            address.getText(), address.getTown().getName(),
+                            address.getEmployees().size());
+                });
     }
 
     private void ExerciseSix() throws IOException {
