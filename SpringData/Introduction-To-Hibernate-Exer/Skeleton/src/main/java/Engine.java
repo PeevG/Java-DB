@@ -1,14 +1,14 @@
 import entities.Address;
 import entities.Employee;
+import entities.Project;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
+import java.util.Comparator;
 
 public class Engine implements Runnable {
 
@@ -35,12 +35,44 @@ public class Engine implements Runnable {
                 case 5 -> ExerciseFiveEmpFromDepartment();
                 case 6 -> ExerciseSix();
                 case 7 -> ExerciseSevenEmployeeCount();
+                case 8 -> ExerciseEightEmpWithProject();
+                case 9 -> ExerciseNineLastTenProjects();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void ExerciseNineLastTenProjects() {
+
+        entityManager.createQuery("SELECT p FROM Project p ORDER BY p.startDate DESC", Project.class)
+                .getResultStream()
+                .limit(10)
+                .sorted(Comparator.comparing(Project::getName))
+                .forEach(project -> {
+                    System.out.printf("Project name: %s%n",project.getName());
+                    System.out.printf("     Project Description: %s%n", project.getDescription());
+                    System.out.println("     Project Start Date:" + project.getStartDate());
+                    System.out.println("     Project End Date: " + project.getEndDate());
+                });
+    }
+
+    private void ExerciseEightEmpWithProject() throws IOException {
+        System.out.println("Please enter employee id: ");
+
+        int employeeId = Integer.parseInt(bufferedReader.readLine());
+
+            Employee employee = entityManager.find(Employee.class, employeeId);
+
+            System.out.printf("%s %s - %s%n", employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
+
+            employee.getProjects()
+                    .stream().sorted(Comparator.comparing(Project::getName))
+                    .forEach(project -> {
+                        System.out.println("      " + project.getName());
+                    });
+        }
 
     private void ExerciseSevenEmployeeCount() {
         entityManager.createQuery("SELECT a FROM Address a ORDER BY a.employees.size DESC", Address.class)
@@ -51,6 +83,7 @@ public class Engine implements Runnable {
                             address.getText(), address.getTown().getName(),
                             address.getEmployees().size());
                 });
+        entityManager.close();
     }
 
     private void ExerciseSix() throws IOException {
@@ -64,7 +97,7 @@ public class Engine implements Runnable {
         Address address = createAddress("Vitoshka 16");
 
         employee.setAddress(address);
-
+        entityManager.close();
     }
 
     private Address createAddress(String addressText) {
