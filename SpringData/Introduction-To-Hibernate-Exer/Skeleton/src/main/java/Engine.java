@@ -38,11 +38,16 @@ public class Engine implements Runnable {
                 case 8 -> ExerciseEightEmpWithProject();
                 case 9 -> ExerciseNineLastTenProjects();
                 case 10 -> ExerciseTen();
+                case 11 -> ExerciseEleven();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ExerciseEleven() {
+        
     }
 
     private void ExerciseTen() {
