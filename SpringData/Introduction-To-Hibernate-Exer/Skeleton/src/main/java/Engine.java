@@ -37,11 +37,29 @@ public class Engine implements Runnable {
                 case 7 -> ExerciseSevenEmployeeCount();
                 case 8 -> ExerciseEightEmpWithProject();
                 case 9 -> ExerciseNineLastTenProjects();
+                case 10 -> ExerciseTen();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ExerciseTen() {
+        entityManager.getTransaction().begin();
+
+        Query query = entityManager.createQuery("UPDATE Employee SET salary = salary * 1.12 WHERE department.id IN (1, 2, 4, 11)");
+
+        query.executeUpdate();
+
+        entityManager.createQuery("SELECT e FROM Employee e WHERE e.department.id IN (1, 2, 4, 11)", Employee.class)
+                .getResultStream()
+                .forEach(e ->  {
+                    System.out.printf("%s %s ($%.2f)%n", e.getFirstName(),
+                            e.getLastName(), e.getSalary());
+                });
+
+        entityManager.getTransaction().commit();
     }
 
     private void ExerciseNineLastTenProjects() {
