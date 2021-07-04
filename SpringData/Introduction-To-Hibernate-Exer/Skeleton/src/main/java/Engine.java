@@ -5,10 +5,12 @@ import entities.Project;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Comparator;
+import java.util.List;
 
 public class Engine implements Runnable {
 
@@ -39,6 +41,7 @@ public class Engine implements Runnable {
                 case 9 -> ExerciseNineLastTenProjects();
                 case 10 -> ExerciseTen();
                 case 11 -> ExerciseEleven();
+                case 12 -> ExerciseTwelve();
             }
 
         } catch (IOException e) {
@@ -46,8 +49,28 @@ public class Engine implements Runnable {
         }
     }
 
-    private void ExerciseEleven() {
-        
+    private void ExerciseTwelve() {
+      entityManager.createNativeQuery("SELECT d.name, MAX(e.salary) AS max_salary FROM employees e\n" +
+                "JOIN departments d on d.department_id = e.department_id\n" +
+                "GROUP BY d.name\n" +
+                "HAVING max_salary NOT BETWEEN 30000 AND 70000;");
+
+
+    }
+
+    private void ExerciseEleven() throws IOException {
+        System.out.println("Please enter input :)");
+        String input = bufferedReader.readLine();
+
+        TypedQuery<Employee> query = entityManager.createQuery("SELECT e FROM Employee e " +
+                "WHERE e.firstName LIKE :input_to_check", Employee.class);
+        query.setParameter("input_to_check", input + "%");
+
+        query.getResultList()
+                .forEach(е -> {
+                    System.out.printf("%s %s - %s - ($%.2f)%n", е.getFirstName(), е.getLastName(),
+                            е.getJobTitle(), е.getSalary());
+                });
     }
 
     private void ExerciseTen() {
@@ -59,7 +82,7 @@ public class Engine implements Runnable {
 
         entityManager.createQuery("SELECT e FROM Employee e WHERE e.department.id IN (1, 2, 4, 11)", Employee.class)
                 .getResultStream()
-                .forEach(e ->  {
+                .forEach(e -> {
                     System.out.printf("%s %s ($%.2f)%n", e.getFirstName(),
                             e.getLastName(), e.getSalary());
                 });
@@ -74,7 +97,7 @@ public class Engine implements Runnable {
                 .limit(10)
                 .sorted(Comparator.comparing(Project::getName))
                 .forEach(project -> {
-                    System.out.printf("Project name: %s%n",project.getName());
+                    System.out.printf("Project name: %s%n", project.getName());
                     System.out.printf("     Project Description: %s%n", project.getDescription());
                     System.out.println("     Project Start Date:" + project.getStartDate());
                     System.out.println("     Project End Date: " + project.getEndDate());
@@ -86,16 +109,16 @@ public class Engine implements Runnable {
 
         int employeeId = Integer.parseInt(bufferedReader.readLine());
 
-            Employee employee = entityManager.find(Employee.class, employeeId);
+        Employee employee = entityManager.find(Employee.class, employeeId);
 
-            System.out.printf("%s %s - %s%n", employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
+        System.out.printf("%s %s - %s%n", employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
 
-            employee.getProjects()
-                    .stream().sorted(Comparator.comparing(Project::getName))
-                    .forEach(project -> {
-                        System.out.println("      " + project.getName());
-                    });
-        }
+        employee.getProjects()
+                .stream().sorted(Comparator.comparing(Project::getName))
+                .forEach(project -> {
+                    System.out.println("      " + project.getName());
+                });
+    }
 
     private void ExerciseSevenEmployeeCount() {
         entityManager.createQuery("SELECT a FROM Address a ORDER BY a.employees.size DESC", Address.class)
