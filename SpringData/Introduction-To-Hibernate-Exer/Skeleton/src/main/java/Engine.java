@@ -1,6 +1,7 @@
 import entities.Address;
 import entities.Employee;
 import entities.Project;
+import entities.Town;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -42,6 +43,7 @@ public class Engine implements Runnable {
                 case 10 -> ExerciseTen();
                 case 11 -> ExerciseEleven();
                 case 12 -> ExerciseTwelve();
+                case 13 -> System.out.println("I`ll do it later maybe  :)");
             }
 
         } catch (IOException e) {
@@ -49,12 +51,40 @@ public class Engine implements Runnable {
         }
     }
 
-    private void ExerciseTwelve() {
-      entityManager.createNativeQuery("SELECT d.name, MAX(e.salary) AS max_salary FROM employees e\n" +
-                "JOIN departments d on d.department_id = e.department_id\n" +
-                "GROUP BY d.name\n" +
-                "HAVING max_salary NOT BETWEEN 30000 AND 70000;");
+//    private void ExerciseThirteen() throws IOException {
+//        System.out.println("Please enter town name: ");
+//        String townName = bufferedReader.readLine();
+//
+//        Town town = entityManager.createQuery("SELECT t FROM Town t WHERE t.name = :t_name", Town.class)
+//                .setParameter("t_name", townName)
+//                .getSingleResult();
+//
+//        int affectedRows = removeAddressByTownId(town.getId());
+//
+//        System.out.printf("%d address in %s is deleted.",
+//                affectedRows,
+//                townName);
+//    }
+//    private int removeAddressByTownId(Integer id){
+//
+//        List<Address> addresses = entityManager.createQuery("SELECT a FROM Address a WHERE a.town.id = :param_id", Address.class)
+//                .setParameter("param_id", id)
+//                .getResultList();
+//
+//        entityManager.getTransaction().begin();
+//        addresses.forEach(entityManager::remove);
+//        entityManager.getTransaction().commit();
+//
+//        return addresses.size();
+//    }
 
+    private void ExerciseTwelve() {
+        List resultList = entityManager.createNativeQuery("SELECT d.name, MAX(e.salary) AS max_salary " +
+                "FROM departments d " +
+                "JOIN employees e on d.department_id = e.department_id " +
+                "GROUP BY d.name " +
+                "HAVING max_salary NOT BETWEEN 30000 AND 70000;")
+                .getResultList();
 
     }
 
@@ -62,11 +92,11 @@ public class Engine implements Runnable {
         System.out.println("Please enter input :)");
         String input = bufferedReader.readLine();
 
-        TypedQuery<Employee> query = entityManager.createQuery("SELECT e FROM Employee e " +
+        TypedQuery<Employee> employees = entityManager.createQuery("SELECT e FROM Employee e " +
                 "WHERE e.firstName LIKE :input_to_check", Employee.class);
-        query.setParameter("input_to_check", input + "%");
+        employees.setParameter("input_to_check", input + "%");
 
-        query.getResultList()
+        employees.getResultList()
                 .forEach(е -> {
                     System.out.printf("%s %s - %s - ($%.2f)%n", е.getFirstName(), е.getLastName(),
                             е.getJobTitle(), е.getSalary());
