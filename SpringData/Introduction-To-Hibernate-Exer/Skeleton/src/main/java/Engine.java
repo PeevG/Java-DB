@@ -1,7 +1,4 @@
-import entities.Address;
-import entities.Employee;
-import entities.Project;
-import entities.Town;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -42,8 +39,8 @@ public class Engine implements Runnable {
                 case 9 -> ExerciseNineLastTenProjects();
                 case 10 -> ExerciseTen();
                 case 11 -> ExerciseEleven();
-                case 12 -> ExerciseTwelve();
-                case 13 -> System.out.println("I`ll do it later maybe  :)");
+                case 12 -> System.out.println("I`ll do it later maybe  :)");
+                case 13 -> System.out.println("Same ...");
             }
 
         } catch (IOException e) {
@@ -78,15 +75,33 @@ public class Engine implements Runnable {
 //        return addresses.size();
 //    }
 
-    private void ExerciseTwelve() {
-        List resultList = entityManager.createNativeQuery("SELECT d.name, MAX(e.salary) AS max_salary " +
-                "FROM departments d " +
-                "JOIN employees e on d.department_id = e.department_id " +
-                "GROUP BY d.name " +
-                "HAVING max_salary NOT BETWEEN 30000 AND 70000;")
-                .getResultList();
-
-    }
+//    private void ExerciseTwelve() {
+////        List resultList = entityManager.createNativeQuery("SELECT d.name, MAX(e.salary) AS max_salary " +
+////                "FROM departments d " +
+////                "JOIN employees e on d.department_id = e.department_id " +
+////                "GROUP BY d.name " +
+////                "HAVING max_salary NOT BETWEEN 30000 AND 70000;")
+////                .getResultList();
+//
+////     entityManager.createQuery("SELECT e.department.name, MAX(e.salary) AS max_salary FROM Employee e " +
+////                "GROUP BY e.department.name" +
+////                " HAVING max_salary NOT BETWEEN 30000 AND 70000", Object[].class)
+////             .getResultList()
+////             .stream()
+////             .forEach(obj -> {
+////                 System.out.printf("%s %.2f", ...);
+////             });
+//
+//        List<Object[]> resultList = this.entityManager
+//                .createQuery("SELECT department.name, MAX(salary) " +
+//                                "FROM Employee " +
+//                                "GROUP BY department.name " +
+//                                "HAVING MAX(salary) NOT BETWEEN 30000 AND 70000",
+//                        Object[].class)
+//                .getResultList();
+//        //Todo: ...
+//
+//    }
 
     private void ExerciseEleven() throws IOException {
         System.out.println("Please enter input :)");
