@@ -1,4 +1,4 @@
-package exerciseOne;
+package entity;
 
 import entity.BaseEntity;
 

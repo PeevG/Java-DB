@@ -5,7 +5,9 @@ import javax.persistence.Persistence;
 public class Main {
     public static void main(String[] args) {
 
-        //Todo: Pick correct package for every exercise number :)
+        EntityManager entityManager = Persistence
+                .createEntityManagerFactory("coolPersistenceName")
+                .createEntityManager();
 
     }
 }
