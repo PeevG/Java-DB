@@ -9,7 +9,8 @@ public class Diagnose extends BaseEntity{
 
     private String name;
     private String comment;
-
+    private Set<Medicament> medicaments;
+    private GP gp;
 
     public Diagnose() {
     }
@@ -31,4 +32,24 @@ public class Diagnose extends BaseEntity{
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+
+    @OneToMany(mappedBy = "diagnose")
+    public Set<Medicament> getMedicaments() {
+        return medicaments;
+    }
+
+    public void setMedicaments(Set<Medicament> medicaments) {
+        this.medicaments = medicaments;
+    }
+
+    @ManyToOne
+    public GP getGp() {
+        return gp;
+    }
+
+    public void setGp(GP gp) {
+        this.gp = gp;
+    }
+
 }

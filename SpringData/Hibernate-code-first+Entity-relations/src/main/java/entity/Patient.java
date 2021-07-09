@@ -1,10 +1,8 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "patients")
@@ -17,6 +15,18 @@ public class Patient extends BaseEntity{
     private LocalDateTime dateOfBirth;
     private Byte[] picture;
     private Boolean medicalInsurance;
+
+    private GP gp;
+    private Set<Visitation> visitation;
+
+    @OneToMany(mappedBy = "patient")
+    public Set<Visitation> getVisitation() {
+        return visitation;
+    }
+
+    public void setVisitation(Set<Visitation> visitation) {
+        this.visitation = visitation;
+    }
 
 
 
@@ -80,4 +90,14 @@ public class Patient extends BaseEntity{
     public void setPicture(Byte[] picture) {
         this.picture = picture;
     }
+
+    @ManyToOne
+    public GP getGp() {
+        return gp;
+    }
+
+    public void setGp(GP gp) {
+        this.gp = gp;
+    }
+
 }

@@ -9,6 +9,8 @@ public class Visitation extends BaseEntity{
 
     private LocalDate date;
     private String comments;
+    private Patient patient;
+    private GP gp;
 
     public Visitation() {
     }
@@ -29,5 +31,23 @@ public class Visitation extends BaseEntity{
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    @ManyToOne
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    @ManyToOne
+    public GP getGp() {
+        return gp;
+    }
+
+    public void setGp(GP gp) {
+        this.gp = gp;
     }
 }

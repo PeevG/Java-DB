@@ -8,6 +8,8 @@ import java.util.Set;
 public class Medicament extends BaseEntity{
 
     private String name;
+    private Diagnose diagnose;
+    private GP gp;
 
 
     public Medicament() {
@@ -22,4 +24,21 @@ public class Medicament extends BaseEntity{
         this.name = name;
     }
 
+    @ManyToOne
+    public Diagnose getDiagnose() {
+        return diagnose;
+    }
+
+    public void setDiagnose(Diagnose diagnose) {
+        this.diagnose = diagnose;
+    }
+
+    @ManyToOne
+    public GP getGp() {
+        return gp;
+    }
+
+    public void setGp(GP gp) {
+        this.gp = gp;
+    }
 }
