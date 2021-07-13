@@ -26,13 +26,15 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         authorService.seedAuthors();
         bookService.seedBooks();
 
-        //printAllBooksAfterYear(2000);
+        //Todo: Pick a method to test
 
-        // printAllAuthorsNamesWithBooksReleasedBeforeYear(1990);
+         printAllBooksAfterYear(2000);
 
-        //printAllAuthorsAndNumberOfTheirBooks();
+         //printAllAuthorsNamesWithBooksReleasedBeforeYear(1990);
 
-        printAllBooksByAuthorNameOrderByReleaseDate("George", "Powell");
+         //printAllAuthorsAndNumberOfTheirBooks();
+
+         //printAllBooksByAuthorNameOrderByReleaseDate("George", "Powell");
 
     }
 
