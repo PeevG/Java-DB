@@ -69,7 +69,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<String> findAllBooksByAuthorFirstAndLastNameOrderByReleaseDate(String firstName, String lastName) {
-       return bookRepository
+        return bookRepository
                 .findAllByAuthor_FirstNameAndAuthor_LastNameOrderByReleaseDateDescTitle(firstName, lastName)
                 .stream()
                 .map(book -> String.format("%s %s %d",
@@ -82,7 +82,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<String> findAllBookTitlesWithAgeRestriction(AgeRestriction ageRestriction) {
 
-      return  bookRepository.findAllByAgeRestriction(ageRestriction)
+        return bookRepository.findAllByAgeRestriction(ageRestriction)
                 .stream()
                 .map(Book::getTitle)
                 .collect(Collectors.toList());
@@ -95,6 +95,18 @@ public class BookServiceImpl implements BookService {
                 findAllByEditionTypeAndCopiesIsLessThan(EditionType.GOLD, 5000)
                 .stream()
                 .map(Book::getTitle)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<String> findAllByPriceIsLessThanOrPriceGreaterThan(BigDecimal priceUnder, BigDecimal priceOver) {
+        return bookRepository
+                .findAllByPriceIsLessThanOrPriceGreaterThan(priceUnder, priceOver)
+                .stream()
+                .map(book ->
+                        String.format("%s - $%.2f", book.getTitle(), book.getPrice())
+                )
                 .collect(Collectors.toList());
 
     }

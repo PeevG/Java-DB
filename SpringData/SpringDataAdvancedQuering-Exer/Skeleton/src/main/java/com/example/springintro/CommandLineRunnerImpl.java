@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -41,8 +42,20 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         switch (exerciseNumber) {
             case 1 -> printAllBooksThatMatchesRequiredAgeRestriction();
             case 2 -> printAllGoldenEditionBookWithCopiesLessThan();
+            case 3 -> printAllBooksWithPrice();
         }
 
+    }
+
+    private void printAllBooksWithPrice() throws IOException {
+
+        System.out.println("Please enter price under you looking for: ");
+        BigDecimal underPrice = new BigDecimal(bufferedReader.readLine());
+        System.out.println("Please enter price over you looking for: ");
+        BigDecimal overPrice = new BigDecimal(bufferedReader.readLine());
+        this.bookService
+                .findAllByPriceIsLessThanOrPriceGreaterThan(underPrice, overPrice)
+                .forEach(System.out::println);
     }
 
     private void printAllGoldenEditionBookWithCopiesLessThan() {
