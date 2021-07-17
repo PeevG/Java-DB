@@ -40,8 +40,14 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
         switch (exerciseNumber) {
             case 1 -> printAllBooksThatMatchesRequiredAgeRestriction();
+            case 2 -> printAllGoldenEditionBookWithCopiesLessThan();
         }
 
+    }
+
+    private void printAllGoldenEditionBookWithCopiesLessThan() {
+        bookService.findAllByEditionTypeAndCopiesIsLessThan()
+                .forEach(System.out::println);
     }
 
     private void printAllBooksThatMatchesRequiredAgeRestriction() throws IOException {
