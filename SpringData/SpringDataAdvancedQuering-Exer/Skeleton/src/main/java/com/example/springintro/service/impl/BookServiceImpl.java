@@ -111,6 +111,27 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    @Override
+    public List<String> findAllByReleaseDateBeforeOrReleaseDateAfter(LocalDate releaseDateBefore, LocalDate releaseAfter) {
+        return bookRepository.findAllByReleaseDateBeforeOrReleaseDateAfter(releaseDateBefore, releaseAfter)
+                .stream()
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findAllBooksBeforeDate(LocalDate localDate) {
+        return this.bookRepository
+                .findAllByReleaseDateBefore(localDate)
+                .stream()
+                .map(book ->
+                    String.format("%s %s %.2f", book.getTitle(), book.getEditionType().name(),
+                            book.getPrice())
+                )
+                .collect(Collectors.toList());
+    }
+
+
     private Book createBookFromInfo(String[] bookInfo) {
         EditionType editionType = EditionType.values()[Integer.parseInt(bookInfo[0])];
         LocalDate releaseDate = LocalDate

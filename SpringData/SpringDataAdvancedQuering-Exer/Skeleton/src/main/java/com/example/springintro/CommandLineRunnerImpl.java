@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
@@ -40,14 +42,37 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         int exerciseNumber = Integer.parseInt(bufferedReader.readLine());
 
         switch (exerciseNumber) {
-            case 1 -> printAllBooksThatMatchesRequiredAgeRestriction();
-            case 2 -> printAllGoldenEditionBookWithCopiesLessThan();
-            case 3 -> printAllBooksWithPrice();
+            case 1 -> booksTitleByAgeRestriction();
+            case 2 -> goldenBooks();
+            case 3 -> booksByPrice();
+            case 4 -> notReleasedBooks();
+            case 5 -> booksReleasedBefore();
         }
+    }
+
+    private void booksReleasedBefore() throws IOException {
+        System.out.println("Please enter date in format dd-MM-yyyy.");
+        LocalDate localDate = LocalDate.parse(bufferedReader.readLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+        this.bookService
+                .findAllBooksBeforeDate(localDate)
+                .forEach(System.out::println);
+    }
+
+    private void notReleasedBooks() throws IOException {
+        System.out.println("Please enter year of release: ");
+        int year = Integer.parseInt(bufferedReader.readLine());
+        LocalDate dateBefore = LocalDate.of(year, 1 ,1);
+        LocalDate dateAfter = LocalDate.of(year, 12 ,31);
+
+        this.bookService
+                .findAllByReleaseDateBeforeOrReleaseDateAfter(dateBefore, dateAfter)
+                .forEach(System.out::println);
+
 
     }
 
-    private void printAllBooksWithPrice() throws IOException {
+    private void booksByPrice() throws IOException {
 
         System.out.println("Please enter price under you looking for: ");
         BigDecimal underPrice = new BigDecimal(bufferedReader.readLine());
@@ -58,12 +83,12 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
                 .forEach(System.out::println);
     }
 
-    private void printAllGoldenEditionBookWithCopiesLessThan() {
+    private void goldenBooks() {
         bookService.findAllByEditionTypeAndCopiesIsLessThan()
                 .forEach(System.out::println);
     }
 
-    private void printAllBooksThatMatchesRequiredAgeRestriction() throws IOException {
+    private void booksTitleByAgeRestriction() throws IOException {
         System.out.println("Please select age restriction: Minor, Teen or Adult.");
 
         AgeRestriction ageRestriction = AgeRestriction.valueOf(bufferedReader.readLine().toUpperCase());
