@@ -140,6 +140,36 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<String> findAllBooksByAuthorsWhoseLastNameStartsWith(String lNameStartWith) {
+        return bookRepository
+                .findAllByAuthorLastNameStartsWith(lNameStartWith)
+                .stream()
+                .map(book -> String.format("%s (%s %s)",
+                        book.getTitle(),
+                        book.getAuthor().getFirstName(),
+                        book.getAuthor().getLastName()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int findAllBooksByTitleLength(int numberOfCharacters) {
+        return this.bookRepository
+                .countOfBookWithTitleLengthMoreThan(numberOfCharacters);
+    }
+
+    @Override
+    public List<String> printInfoAboutBookByGivenTitle(String title) {
+        return this.bookRepository
+                .findBookByTitle(title)
+                .stream()
+                .map(book -> String.format("%s %s %s %.2f",
+                        book.getTitle(),
+                        book.getEditionType().name(),
+                        book.getAgeRestriction().name(),
+                        book.getPrice()))
+                .collect(Collectors.toList());
+    }
 
     private Book createBookFromInfo(String[] bookInfo) {
         EditionType editionType = EditionType.values()[Integer.parseInt(bookInfo[0])];

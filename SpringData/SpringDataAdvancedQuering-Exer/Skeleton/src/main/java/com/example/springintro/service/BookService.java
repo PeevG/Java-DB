@@ -1,6 +1,7 @@
 package com.example.springintro.service;
 
 import com.example.springintro.model.entity.AgeRestriction;
+import com.example.springintro.model.entity.Author;
 import com.example.springintro.model.entity.Book;
 import com.example.springintro.model.entity.EditionType;
 
@@ -29,4 +30,10 @@ public interface BookService {
     List<String> findAllBooksBeforeDate(LocalDate localDate);
 
     List<String> findAllBooksIfTheyContaining(String partOfTitle);
+
+    List<String> findAllBooksByAuthorsWhoseLastNameStartsWith(String lNameStartWith);
+
+    int findAllBooksByTitleLength(int numberOfCharacters);
+
+    List<String> printInfoAboutBookByGivenTitle(String title);
 }

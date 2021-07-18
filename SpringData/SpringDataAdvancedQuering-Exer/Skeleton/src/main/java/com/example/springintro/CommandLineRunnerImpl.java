@@ -33,10 +33,13 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     public void run(String... args) throws Exception {
         seedData();
 
+        // We use skeleton from previous project, so here is some unused old methods. :)
+
         // printAllBooksAfterYear(2000);
         // printAllAuthorsNamesWithBooksWithReleaseDateBeforeYear(1990);
         // printAllAuthorsAndNumberOfTheirBooks();
         // printALlBooksByAuthorNameOrderByReleaseDate("George", "Powell");
+
 
         System.out.println();
         System.out.println("Please enter exercise number: ");
@@ -50,7 +53,44 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 5 -> booksReleasedBefore();
             case 6 -> authorsSearch();
             case 7 -> booksSearch();
+            case 8 -> booksTitleSearch();
+            case 9 -> countBooks();
+            case 10 -> totalBookCopies();
+            case 11 -> reducedBook();
         }
+    }
+
+    private void reducedBook() throws IOException {
+        System.out.println("Please enter title: ");
+        String title = bufferedReader.readLine();
+
+        this.bookService
+                .printInfoAboutBookByGivenTitle(title)
+                .forEach(System.out::println);
+    }
+
+    private void totalBookCopies() {
+        this.authorService
+                .findAuthorTotalBookCopies()
+                .forEach(System.out::println);
+    }
+
+    private void countBooks() throws IOException {
+        System.out.println("Please enter a number of characters in title: ");
+        int numberOfCharacters = Integer.parseInt(bufferedReader.readLine());
+
+        int allBooksByTitleLength = this.bookService
+                .findAllBooksByTitleLength(numberOfCharacters);
+        System.out.printf("There are %d books with longer title than %d symbols.", allBooksByTitleLength, numberOfCharacters);
+    }
+
+    private void booksTitleSearch() throws IOException {
+        System.out.println("Please enter last name starts with: ");
+        String lNameStartWith = bufferedReader.readLine();
+
+        this.bookService
+                .findAllBooksByAuthorsWhoseLastNameStartsWith(lNameStartWith)
+                .forEach(System.out::println);
     }
 
     private void booksSearch() throws IOException {
@@ -82,8 +122,8 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     private void notReleasedBooks() throws IOException {
         System.out.println("Please enter year of release: ");
         int year = Integer.parseInt(bufferedReader.readLine());
-        LocalDate dateBefore = LocalDate.of(year, 1 ,1);
-        LocalDate dateAfter = LocalDate.of(year, 12 ,31);
+        LocalDate dateBefore = LocalDate.of(year, 1, 1);
+        LocalDate dateAfter = LocalDate.of(year, 12, 31);
 
         this.bookService
                 .findAllByReleaseDateBeforeOrReleaseDateAfter(dateBefore, dateAfter)
