@@ -61,4 +61,14 @@ public class AuthorServiceImpl implements AuthorService {
                         author.getBooks().size()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> findAllAuthorsWhoseFirstNameEndWith(String firstNameEndWith) {
+        return this.authorRepository
+                .findAllByFirstNameEndingWith(firstNameEndWith)
+                .stream()
+                .map(author -> String.format("%s %s", author.getFirstName(),
+                        author.getLastName()))
+                .collect(Collectors.toList());
+    }
 }

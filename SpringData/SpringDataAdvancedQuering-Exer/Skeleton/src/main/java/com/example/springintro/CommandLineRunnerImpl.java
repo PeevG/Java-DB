@@ -38,6 +38,7 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         // printAllAuthorsAndNumberOfTheirBooks();
         // printALlBooksByAuthorNameOrderByReleaseDate("George", "Powell");
 
+        System.out.println();
         System.out.println("Please enter exercise number: ");
         int exerciseNumber = Integer.parseInt(bufferedReader.readLine());
 
@@ -47,7 +48,26 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 3 -> booksByPrice();
             case 4 -> notReleasedBooks();
             case 5 -> booksReleasedBefore();
+            case 6 -> authorsSearch();
+            case 7 -> booksSearch();
         }
+    }
+
+    private void booksSearch() throws IOException {
+        System.out.println("Please enter part from title you looking for:");
+        String partOfTitle = bufferedReader.readLine();
+
+        this.bookService
+                .findAllBooksIfTheyContaining(partOfTitle)
+                .forEach(System.out::println);
+    }
+
+    private void authorsSearch() throws IOException {
+        System.out.println("Please enter first name ends with: ");
+        String firstNameEndWith = bufferedReader.readLine();
+        this.authorService
+                .findAllAuthorsWhoseFirstNameEndWith(firstNameEndWith)
+                .forEach(System.out::println);
     }
 
     private void booksReleasedBefore() throws IOException {

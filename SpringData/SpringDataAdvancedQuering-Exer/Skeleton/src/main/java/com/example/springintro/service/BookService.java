@@ -27,4 +27,6 @@ public interface BookService {
     List<String> findAllByReleaseDateBeforeOrReleaseDateAfter(LocalDate releaseDateBefore, LocalDate releaseAfter);
 
     List<String> findAllBooksBeforeDate(LocalDate localDate);
+
+    List<String> findAllBooksIfTheyContaining(String partOfTitle);
 }
