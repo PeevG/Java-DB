@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categories")
-public class Category extends BaseEntity{
+public class Category extends BaseEntity {
 
     private String name;
 

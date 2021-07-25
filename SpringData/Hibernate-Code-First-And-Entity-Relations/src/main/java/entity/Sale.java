@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "sales")
-public class Sale extends BaseEntity{
+public class Sale extends BaseEntity {
 
     private Product product;
     private Customer customer;

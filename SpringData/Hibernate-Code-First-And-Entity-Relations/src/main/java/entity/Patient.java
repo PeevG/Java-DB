@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "patients")
-public class Patient extends BaseEntity{
+public class Patient extends BaseEntity {
 
     private String firstName;
     private String lastName;
@@ -27,8 +27,6 @@ public class Patient extends BaseEntity{
     public void setVisitation(Set<Visitation> visitation) {
         this.visitation = visitation;
     }
-
-
 
 
     public Patient() {

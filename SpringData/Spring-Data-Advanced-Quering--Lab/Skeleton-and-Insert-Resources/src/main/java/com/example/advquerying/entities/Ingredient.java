@@ -1,4 +1,5 @@
 package com.example.advquerying.entities;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -45,6 +46,6 @@ public class Ingredient extends BaseEntity {
 
     @Override
     public String toString() {
-        return this.getName() ;
+        return this.getName();
     }
 }

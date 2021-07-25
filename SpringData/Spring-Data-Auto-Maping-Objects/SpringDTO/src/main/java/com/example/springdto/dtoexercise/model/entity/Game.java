@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "games")
-public class Game extends BaseEntity{
+public class Game extends BaseEntity {
     private String title;
     private String trailer;
     private String imageThumbnail;

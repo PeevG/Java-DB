@@ -1,4 +1,5 @@
 package com.example.advquerying.entities;
+
 import javax.persistence.*;
 import java.util.Set;
 

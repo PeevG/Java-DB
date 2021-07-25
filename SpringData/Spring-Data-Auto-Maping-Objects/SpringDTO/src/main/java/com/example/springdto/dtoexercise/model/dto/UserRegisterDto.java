@@ -31,7 +31,7 @@ public class UserRegisterDto {
     }
 
     @Pattern(regexp = "[A-Za-z1-9]{6,}",
-    message = "Password length must be at least 6 symbols and must contain at least 1 uppercase, 1 lowercase letter and 1 digit.")
+            message = "Password length must be at least 6 symbols and must contain at least 1 uppercase, 1 lowercase letter and 1 digit.")
     public String getPassword() {
         return password;
     }

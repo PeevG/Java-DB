@@ -28,13 +28,13 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
         //Todo: Pick a method to test
 
-         printAllBooksAfterYear(2000);
+        printAllBooksAfterYear(2000);
 
-         //printAllAuthorsNamesWithBooksReleasedBeforeYear(1990);
+        //printAllAuthorsNamesWithBooksReleasedBeforeYear(1990);
 
-         //printAllAuthorsAndNumberOfTheirBooks();
+        //printAllAuthorsAndNumberOfTheirBooks();
 
-         //printAllBooksByAuthorNameOrderByReleaseDate("George", "Powell");
+        //printAllBooksByAuthorNameOrderByReleaseDate("George", "Powell");
 
     }
 

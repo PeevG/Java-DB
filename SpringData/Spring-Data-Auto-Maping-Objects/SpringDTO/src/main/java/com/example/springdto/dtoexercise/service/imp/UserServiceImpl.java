@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository
                 .findByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword())
                 .orElse(null);
-        if(user == null) {
+        if (user == null) {
             System.out.println("Incorrect username/password");
             return;
         }
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        if(loggedInUser == null) {
+        if (loggedInUser == null) {
             System.out.println("Cannot logout. No user was  logged in.");
             return;
         } else {

@@ -35,7 +35,7 @@ public class Project {
         this.name = name;
     }
 
-    @Column(name = "description",columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     public String getDescription() {
         return description;
     }

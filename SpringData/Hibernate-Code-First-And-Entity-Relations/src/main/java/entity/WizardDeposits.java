@@ -30,7 +30,7 @@ public class WizardDeposits extends BaseEntity {
     public WizardDeposits() {
     }
 
-    @Column (name = "first_name", length = 50)
+    @Column(name = "first_name", length = 50)
     public String getFirstName() {
         return firstName;
     }
@@ -39,7 +39,7 @@ public class WizardDeposits extends BaseEntity {
         this.firstName = firstName;
     }
 
-    @Column (name = "last_name", length = 60, nullable = false)
+    @Column(name = "last_name", length = 60, nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -48,7 +48,7 @@ public class WizardDeposits extends BaseEntity {
         this.lastName = lastName;
     }
 
-    @Column (name = "notes", length = 1000)
+    @Column(name = "notes", length = 1000)
     public String getNotes() {
         return notes;
     }
@@ -93,7 +93,7 @@ public class WizardDeposits extends BaseEntity {
         this.depositGroup = depositGroup;
     }
 
-    @Column(name =  "deposit_start_date")
+    @Column(name = "deposit_start_date")
     public LocalDateTime getDepositStartDate() {
         return depositStartDate;
     }

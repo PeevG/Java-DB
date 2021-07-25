@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "visitation")
-public class Visitation extends BaseEntity{
+public class Visitation extends BaseEntity {
 
     private LocalDate date;
     private String comments;

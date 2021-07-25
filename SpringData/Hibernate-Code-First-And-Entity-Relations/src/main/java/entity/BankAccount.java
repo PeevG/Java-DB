@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "bank_account")
-public class BankAccount extends BillingDetail{
+public class BankAccount extends BillingDetail {
 
     private String bankName;
     private String SWIFTCode;

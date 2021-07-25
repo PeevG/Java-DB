@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class ApplicationBeanConfiguration {
 
     @Bean
-    public ModelMapper modelMapper(){
+    public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
         modelMapper

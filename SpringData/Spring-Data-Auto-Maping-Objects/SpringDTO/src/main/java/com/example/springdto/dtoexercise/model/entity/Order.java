@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity{
+public class Order extends BaseEntity {
 
     private User buyer;
     private Set<Game> game;

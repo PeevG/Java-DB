@@ -125,8 +125,8 @@ public class BookServiceImpl implements BookService {
                 .findAllByReleaseDateBefore(localDate)
                 .stream()
                 .map(book ->
-                    String.format("%s %s %.2f", book.getTitle(), book.getEditionType().name(),
-                            book.getPrice())
+                        String.format("%s %s %.2f", book.getTitle(), book.getEditionType().name(),
+                                book.getPrice())
                 )
                 .collect(Collectors.toList());
     }

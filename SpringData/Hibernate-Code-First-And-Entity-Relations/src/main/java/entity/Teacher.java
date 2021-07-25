@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher extends UniversityUsers{
+public class Teacher extends UniversityUsers {
 
     private String email;
     private Double salaryPerHour;

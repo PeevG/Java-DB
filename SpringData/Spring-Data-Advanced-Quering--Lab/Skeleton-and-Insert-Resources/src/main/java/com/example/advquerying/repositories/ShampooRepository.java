@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface ShampooRepository extends BaseRepository<Shampoo>{
+public interface ShampooRepository extends BaseRepository<Shampoo> {
 
     List<Shampoo> findAllShampooBySizeOrderById(Size size);
 

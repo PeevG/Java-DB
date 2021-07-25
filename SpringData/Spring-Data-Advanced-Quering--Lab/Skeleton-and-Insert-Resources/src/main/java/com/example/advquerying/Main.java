@@ -148,7 +148,7 @@ public class Main implements CommandLineRunner {
     private void exerOne() {
         System.out.println("Please enter size: SMALL, MEDIUM or LARGE");
         Size size = Size.valueOf(scanner.nextLine());
-         this.shampooService.findAllShampooBySizeOrderById(size)
+        this.shampooService.findAllShampooBySizeOrderById(size)
                 .forEach(System.out::println);
     }
 }

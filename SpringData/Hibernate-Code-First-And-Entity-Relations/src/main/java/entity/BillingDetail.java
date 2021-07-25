@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "billing_details")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BillingDetail extends BaseEntity{
+public abstract class BillingDetail extends BaseEntity {
 
     private String number;
     private BankUser owner;

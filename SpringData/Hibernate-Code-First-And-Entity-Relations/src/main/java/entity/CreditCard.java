@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "credit_card")
-public class CreditCard extends BillingDetail{
+public class CreditCard extends BillingDetail {
 
     private String cardType;
     private LocalDate expirationMonth;

@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "store_location")
-public class StoreLocation extends BaseEntity{
+public class StoreLocation extends BaseEntity {
 
     private String locationName;
     private Set<Sale> sales;

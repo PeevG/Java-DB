@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     private String name;
     private Double quantity;

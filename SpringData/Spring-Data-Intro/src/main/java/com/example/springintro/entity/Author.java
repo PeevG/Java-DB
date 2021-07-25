@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "author")
-public class Author extends BaseEntity{
+public class Author extends BaseEntity {
 
     private String firstName;
     private String lastName;

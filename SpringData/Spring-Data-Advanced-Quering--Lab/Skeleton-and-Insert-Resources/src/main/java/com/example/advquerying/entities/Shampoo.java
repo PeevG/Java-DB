@@ -73,6 +73,6 @@ public class Shampoo extends BaseEntity {
         return "" +
                 "" + brand +
                 " " + size +
-                " " + price + "lv." ;
+                " " + price + "lv.";
     }
 }

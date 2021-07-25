@@ -47,8 +47,8 @@ public class CommandLineRunnerImp implements CommandLineRunner {
                                 Double.parseDouble(commands[3]), commands[4], commands[5], commands[6],
                                 LocalDate.parse(commands[7], DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
                 case "EditGame" -> gameService
-                        .editGame(Long.parseLong(commands[1]),new BigDecimal(commands[2])
-                        ,Double.parseDouble(commands[3]));
+                        .editGame(Long.parseLong(commands[1]), new BigDecimal(commands[2])
+                                , Double.parseDouble(commands[3]));
                 case "DeleteGame" -> gameService
                         .deleteGame(Long.parseLong(commands[1]));
             }

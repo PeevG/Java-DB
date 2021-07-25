@@ -35,7 +35,7 @@ public class Main {
         while (resultSet.next()) {
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
-            System.out.println(firstName + " " + lastName );
+            System.out.println(firstName + " " + lastName);
         }
     }
 }

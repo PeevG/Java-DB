@@ -1,4 +1,3 @@
-
 INSERT INTO shampoo_company.labels(id, title, subtitle)
 VALUES (1, 'Repair & Nutrition', 'For naturally beautiful hair from roots to tips!'),
        (2, 'Taming & Anti-Split Ends', 'For unruly hair with split ends.'),
@@ -11,7 +10,8 @@ VALUES (1, 'Repair & Nutrition', 'For naturally beautiful hair from roots to tip
        (9, 'Vital', 'Tired & lifeless hair'),
        (10, 'Power Volume', 'Fine & flat hair'),
        (11, 'Anti-Dandruff', 'Quickly greasing & flaky hair');
-USE shampoo_company;
+USE
+shampoo_company;
 INSERT INTO shampoo_company.ingredients(id, name, price)
 VALUES (1, 'Apple', '0.50'),
        (2, 'Nettle', '0.70'),

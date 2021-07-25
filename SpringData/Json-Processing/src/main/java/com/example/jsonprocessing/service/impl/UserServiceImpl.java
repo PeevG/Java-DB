@@ -1,0 +1,45 @@
+package com.example.jsonprocessing.service.impl;
+
+import com.example.jsonprocessing.model.dto.UserSeedDto;
+import com.example.jsonprocessing.model.entity.User;
+import com.example.jsonprocessing.repository.UserRepository;
+import com.example.jsonprocessing.service.UserService;
+import com.example.jsonprocessing.util.ValidationUtil;
+import com.google.gson.Gson;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private static final String USERS_FILE_PATH = "src/main/resources/files/users.json";
+
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+    private final ValidationUtil validationUtil;
+    private final Gson gson;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, ValidationUtil validationUtil, Gson gson) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+        this.validationUtil = validationUtil;
+        this.gson = gson;
+    }
+
+
+    @Override
+    public void seedUsers() throws IOException {
+        if (userRepository.count() == 0) {
+            Arrays.stream(gson.fromJson(Files.readString(Path.of(USERS_FILE_PATH)),
+                    UserSeedDto[].class))
+                    .filter(validationUtil::isValid)
+                    .map(userSeedDto -> modelMapper.map(userSeedDto, User.class))
+                    .forEach(userRepository::save);
+        }
+    }
+}

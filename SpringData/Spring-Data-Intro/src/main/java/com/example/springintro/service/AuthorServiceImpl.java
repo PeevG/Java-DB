@@ -25,7 +25,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void seedAuthors() throws IOException {
-        if(authorRepository.count() > 0) {
+        if (authorRepository.count() > 0) {
             return;
         }
 
@@ -44,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
     public Author gerRandomAuthor() {
 
         long randomId = ThreadLocalRandom
-                .current().nextLong(1, authorRepository.count() -1 );
+                .current().nextLong(1, authorRepository.count() - 1);
 
         return authorRepository
                 .findById(randomId)

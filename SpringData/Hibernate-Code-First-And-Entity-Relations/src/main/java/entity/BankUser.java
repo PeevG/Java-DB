@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class BankUser extends BaseEntity{
+public class BankUser extends BaseEntity {
 
 
     private String firstName;

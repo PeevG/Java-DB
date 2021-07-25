@@ -30,7 +30,7 @@ public class GameAddDto {
     }
 
     @Pattern(regexp = "^[A-Z][a-z]{3,100}",
-    message = "Please enter valid title: ")
+            message = "Please enter valid title: ")
     public String getTitle() {
         return title;
     }
@@ -38,6 +38,7 @@ public class GameAddDto {
     public void setTitle(String title) {
         this.title = title;
     }
+
     @Positive(message = "Please enter a valid price: ")
     public BigDecimal getPrice() {
         return price;

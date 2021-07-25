@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void seedCategories() throws IOException {
-        if(categoryRepository.count() > 0) {
+        if (categoryRepository.count() > 0) {
             return;
         }
 

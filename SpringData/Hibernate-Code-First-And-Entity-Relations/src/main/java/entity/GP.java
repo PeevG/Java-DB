@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "gp")
-public class GP extends BaseEntity{
+public class GP extends BaseEntity {
 
     private Set<Patient> patients;
     private Set<Visitation> visitations;

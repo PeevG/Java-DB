@@ -16,7 +16,7 @@ import java.util.Set;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
-    private  final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
     private final ValidationUtil validationUtil;
 
     public GameServiceImpl(GameRepository gameRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
@@ -29,7 +29,7 @@ public class GameServiceImpl implements GameService {
     public void addGame(GameAddDto gameAddDto) {
         Set<ConstraintViolation<GameAddDto>> violations = validationUtil.getViolations(gameAddDto);
 
-        if(!violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             violations
                     .stream()
                     .map(ConstraintViolation::getMessage)
@@ -51,7 +51,7 @@ public class GameServiceImpl implements GameService {
         Game game = gameRepository.findById(gameId)
                 .orElse(null);
 
-        if (game == null){
+        if (game == null) {
             System.out.println("Invalid game id");
             return;
         }
@@ -68,7 +68,7 @@ public class GameServiceImpl implements GameService {
         Game game = gameRepository.findById(gameId)
                 .orElse(null);
 
-        if (game == null){
+        if (game == null) {
             System.out.println("Invalid game id");
             return;
         }
