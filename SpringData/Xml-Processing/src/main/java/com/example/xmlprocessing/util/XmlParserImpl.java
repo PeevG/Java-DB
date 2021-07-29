@@ -1,6 +1,7 @@
-package com.example.xmlprocessing.util.impl;
+package com.example.xmlprocessing.util;
 
 import com.example.xmlprocessing.util.XmlParser;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -8,6 +9,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+@Component
 public class XmlParserImpl implements XmlParser {
 
     private JAXBContext jaxbContext;
